@@ -1,8 +1,5 @@
-import nltk.classify.util
+import sys
 from nltk.classify import NaiveBayesClassifier
-from nltk.corpus import names
-import cgi
-form = cgi.FieldStorage()
 
  
 def word_feats(words):
@@ -23,7 +20,7 @@ classifier = NaiveBayesClassifier.train(train_set)
 # Predict
 neg = 0
 pos = 0
-sentence =  form.getvalue('searchbox')
+sentence =  "My day was awful.  I am sad.."
 #sentence = sentence.lower()
 words = sentence.split(' ')
 for word in words:
@@ -33,5 +30,5 @@ for word in words:
     if classResult == 'pos':
         pos = pos + 1
  
-print('Positive: ' + str(float(pos)/len(words)))
-print('Negative: ' + str(float(neg)/len(words)))
+print(str(float(pos)/len(words)))
+print(str(float(neg)/len(words)))

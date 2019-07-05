@@ -41,11 +41,9 @@
       <br><p>Enter any text from your social media to analyze the sentiments.<br></p>
     </div>
     <div class="usertext">
-      <form>
-       <p><br><textarea name="search" class="form-control" action="/cgi-bin/test.py" method="get" style=" margin-left: 450px; margin-right: 10px; padding-right: 20px; width: 1000px;"></textarea></p><br>
-       Search: <input type="text" name='searchbox>
-	   /*<p><button type="submit" name="submit"class="btn btn-default" style="margin-left: 10px; margin-bottom: 10px; background-color: black; color:white;">Analyze</button></p> */
-       <input type="submit" value="Submit">
+      <form action="Resultpage.php" method="post">
+       Search: <input type="text" name="sentence">
+	   <p><button type="submit" name="submit" class="btn btn-default" style="margin-left: 10px; margin-bottom: 10px; background-color: black; color:white;">Analyze</button></p> */\
 	  </form>
     
   </header>
