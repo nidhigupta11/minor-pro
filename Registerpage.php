@@ -1,3 +1,13 @@
+<?php
+  session_start();
+  if(isset($_POST['submit'])){
+    $_SESSION['sentence'] = $_POST['sentence'];
+    echo $_SESSION['sentence'];
+    if(isset($_SESSION['id'])){
+      header('Location: Resultpage.php');
+    }
+  }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,34 +31,29 @@
     ?>
   </nav>
   <?php
-  error_reporting(0);
-     include('config.php');
+    include('config.php');
    if(isset($_POST['Login']))
      {  
-      session_start();
        
       $name=$_POST['fname'];
       
       $password=$_POST['password'];
-       $sel ="select * from userdata where fname='$name' and password='$password'";
-
-       $query=mysqli_query($con,$sel);
-       $count= mysqli_num_rows($query);
-
+      
+      $sel ="select * from minor where email='$name' and password='$password'";
+      $query=mysqli_query($con,$sel);
       if($fetch=mysqli_fetch_assoc($query))
       {
         $name=$fetch['fname'];
         $id=$fetch['id'];
         $_SESSION['login_user']=$name;
-
         $_SESSION['id']=$id;
-        date_default_timezone_set("Asia/Kolkata");
-        $logintime = date('Y-m-d H:i:s');
-        $upd="UPDATE userdata SET logintime='$logintime' WHERE fname='$name'";
-        $upqry=mysqli_query($con,$upd);
+        if(isset($_SESSION['sentence'])){
+          header('Location: Resultpage.php');
+        }
+        else{
+          header('Location: Frontend.php');
+        }
         
-         header('Location:project1.php');
-       echo "Login successful.";
       }
       else
       {
@@ -62,9 +67,9 @@
         <form action="" method="post">
     <p><h1>Already a User?</h1></p>
     <p><h2><u>Sign in</u></h2></p>
-    <p>Username:<input type="text"  class="form-control" style="width: 200px; margin-left="450px"" name="fname" value="" ></p>
-    <p>Password:<input type="Password"  class="form-control" style="width: 200px;margin-left="450px"" name="password" value=""></p>
-    <p><button type="submit" class="btn btn-default" name="Login" value="Login" ">Login</button></p>
+    <p>Username:<input type="text"  class="form-control" style="width: 200px; margin-left:450px" name="fname" value="" ></p>
+    <p>Password:<input type="Password"  class="form-control" style="width: 200px;margin-left:450px" name="password" value=""></p>
+    <p><button type="submit" class="btn btn-default" name="Login" value="Login">Login</button></p>
 </form>
 </div>
 </div>
@@ -74,7 +79,7 @@ error_reporting(0);
 include 'config.php';
 $fnameERR=$lnameERR=$emailERR=$phnoERR=$websiteERR=$pswdERR="";
 $fname=$lname=$email=$phno=$password=$duplicate="";
-if (isset($_POST['Submit']))
+if (isset($_POST['Register']))
    {  $fname=$_POST['fname'];
       $lname=$_POST['lname'];
       $email=$_POST['email'];
@@ -197,7 +202,7 @@ if (isset($_POST['Submit']))
               <p>Gender:
             <input type="radio" name="gender" value="M">M
             <input type="radio" name="gender" value="F">F</p><br>
-            <button type="submit" class="btn btn-submit" name="Submit">Submit</button><br>
+            <button type="submit" class="btn btn-submit" name="Register">Submit</button><br>
           </form>
         </div>
       </div>
