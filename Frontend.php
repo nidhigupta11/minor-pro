@@ -34,6 +34,8 @@
       <header class="headtext">
     <div class="container">
       <img class="img-fluid mb-5 d-block mx-auto" src="img/profile.png" alt="">
+      Welcome,
+
       <h1 class="text-uppercase mb-0">YOUR MENTAL HEALTH MATTERS</h1>
       <hr class="star-light">
       <h3 class="font-weight-light mb-0">Do you feel depressed, anxious, worried all the time, or suicidal? </h3>
@@ -41,7 +43,7 @@
       <br><p>Enter any text from your social media to analyze the sentiments.<br></p>
     </div>
     <div class="usertext">
-      <form action="Resultpage.php" method="post">
+      <form action="Registerpage.php" method="post">
        Search: <input type="text" name="sentence">
 	   <p><button type="submit" name="submit" class="btn btn-default" style="margin-left: 10px; margin-bottom: 10px; background-color: black; color:white;">Analyze</button></p> */\
 	  </form>

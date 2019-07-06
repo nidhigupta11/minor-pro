@@ -1,13 +1,20 @@
 <?php
-if(isset($_POST['submit'])){
-  $python = "YOUR PATH HERE";
+session_start();
+require 'config.php';
+if(isset($_SESSION['sentence'])){
+  $id = $_SESSION['id'];
+  $sentence = $_SESSION['sentence'];
+  $python = "PATH HERE";
   $pyscript = "nltk_sample.py";
-  $sentence = $_POST['sentence'];
+  $sentence = $_SESSION['sentence'];
   $cmd = "$python $pyscript $sentence";
   exec("$cmd", $output);
+  $op = (float)$output[0];
+  $query = "INSERT INTO `record`(`user`, `text`, `result`) VALUES ($id,'$sentence',$op)";
+  mysqli_query($con,$query);
 }
 else{
-  header('Frontend.php');
+  header('Location: Frontend.php');
 }
 ?>
 <!DOCTYPE html>
@@ -70,6 +77,26 @@ else{
         </div>
     </div>
   </section>
+  <section id="previous-data">
+<table border=1>
+<tr><td>Sentence</td><td>Result</td></tr>
+<?php
+$query = "SELECT * FROM record WHERE user=$id";
+$result = mysqli_query($con,$query);
+while($row = mysqli_fetch_array($result)){
+  echo'
+    <tr><td>
+    '.$row['text'].'
+    </td><td>
+    '.$row['result'].'
+    </td>
+    </tr>
+  ';
+}
+?>
+  <tr><td></td></tr>
+</table>
+</section>
 
     </section>
    <footer>
