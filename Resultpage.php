@@ -1,3 +1,15 @@
+<?php
+if(isset($_POST['submit'])){
+  $python = "YOUR PATH HERE";
+  $pyscript = "nltk_sample.py";
+  $sentence = $_POST['sentence'];
+  $cmd = "$python $pyscript $sentence";
+  exec("$cmd", $output);
+}
+else{
+  header('Frontend.php');
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +48,18 @@
   <div class="media-body" style="background-color:oldlace;margin-left:20px; padding-left: 50px;">
   <div class="media-heading" style="font-size: 20px;
   error_reporting(0);font-family:sans-serif;"><h3><u>Result</u></h3>
-  <p>Hey Friend! <br> Your sentiment analysis of social media posts suggests that you are happy and out of the danger of being in depression.<br>Thank you for taking this test.</p>
+  <?php
+  if((float)$output[0] >= 0.5){
+    echo '
+    <p>Hey Friend! <br> Your sentiment analysis of social media posts suggests that you are happy and out of the danger of being in depression.<br>Thank you for taking this test.</p>
+    ';
+  }
+  else{
+    echo '
+      Negative Result
+    ';
+  }
+  ?>
   </div>
 </div>
   <section class="bg-primary text-white mb-0" id="about">
